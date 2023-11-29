@@ -18,5 +18,4 @@ const jwt = await new SignJWT({ claims: { a: 'rw' } })
 console.log({ jwt });
 
 // const { payload, protectedHeader } = await jwtVerify(jwt, publicKey);
-
 // console.log({ payload, protectedHeader });

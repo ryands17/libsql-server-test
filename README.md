@@ -1,6 +1,6 @@
 # LibSQL Server test
 
-This is an understanding project on how LibSQL server works. You can use this sample to run a full fledged replicated SQLITE on Kubernetes. This example contains a [docker-compose.yml]('./docker-compose.yml') for deploying a main and replica database and uses Drizzle ORM for querying the table. There's a simple `todos` table created to test the functionality out.
+This is an understanding project on how LibSQL server works. You can use this sample to run a full fledged replicated SQLITE on Kubernetes. This example contains a [docker-compose.yml](./docker-compose.yml) for deploying a main and replica database and uses Drizzle ORM for querying the table. There's a simple `todos` table created to test the functionality out.
 
 Authorisation has also been implemented using JWT signing and that can be found in the [utils](./utils) folder. This make sure that the database is protected.
 
@@ -30,11 +30,11 @@ Rename the `.env.example` file to `.env` and add the token obtained in the outpu
 
 ## Commands
 
-- dev: Run the test project with Drizzle in watch mode
-- db:push - Push changes to the database directly
-- build - Build the app for production
-- start - Start the built production app
-- studio - UI to interact with your database
+- **dev**: Run the test project with Drizzle in watch mode
+- **db:push** - Push changes to the database directly
+- **build** - Build the app for production
+- **start** - Start the built production app
+- **studio** - UI to interact with your database
 
 Things to experiment with:
 
