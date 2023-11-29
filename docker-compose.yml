@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: ghcr.io/libsql/sqld:v0.21.9
+    volumes:
+      - db_data:/var/lib/sqld
+      - ./keys:/keys
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+      - '5000'
+    command: ['sqld', '--http-listen-addr', '0.0.0.0:8080', '--grpc-listen-addr', '0.0.0.0:5000', '--auth-jwt-key-file', '/keys/public-key.pem', '--db-path', '/var/lib/sqld/primary.sqld']
+  replica1:
+    image: ghcr.io/libsql/sqld:v0.21.9
+    volumes:
+      - db_replica1:/var/lib/sqld
+      - ./keys:/keys
+    depends_on:
+      db:
+        condition: service_started
+        restart: true
+    ports:
+      - '8081:8081'
+    command: ['sqld', '--http-listen-addr', '0.0.0.0:8081', '--primary-grpc-url', 'http://db:5000', '--auth-jwt-key-file', '/keys/public-key.pem', '--db-path', '/var/lib/sqld/replica1.sqld']
+volumes:
+  db_data:
+  db_replica1:

@@ -1,0 +1,42 @@
+{
+  "name": "libsql-test",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev:build": "esbuild src/index.ts --bundle --platform=node --packages=external --sourcemap --outfile=dist/index.js --format=esm --watch",
+    "dev:serve": "nodemon -x \"clear;node\" dist/index.js",
+    "dev": "run-p dev:*",
+    "generate": "drizzle-kit generate:sqlite",
+    "db:push": "drizzle-kit push:sqlite",
+    "build": "esbuild src/index.ts --bundle --platform=node --packages=external --minify --sourcemap --outfile=dist/index.js --format=esm",
+    "studio": "drizzle-kit studio --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "drizzle-kit": "^0.20.6",
+    "esbuild": "^0.19.8",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "dependencies": {
+    "@libsql/client": "0.4.0-pre.2",
+    "@libsql/kysely-libsql": "^0.3.0",
+    "drizzle-orm": "^0.29.0",
+    "jose": "^5.1.2",
+    "kysely": "^0.26.3",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  }
+}
