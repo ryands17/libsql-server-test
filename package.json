@@ -11,7 +11,8 @@
     "generate": "drizzle-kit generate:sqlite",
     "db:push": "drizzle-kit push:sqlite",
     "build": "esbuild src/index.ts --bundle --platform=node --packages=external --minify --sourcemap --outfile=dist/index.js --format=esm",
-    "studio": "drizzle-kit studio --verbose"
+    "studio": "drizzle-kit studio --verbose",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

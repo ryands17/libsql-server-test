@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import { SignJWT, jwtVerify, importPKCS8, importSPKI } from 'jose';
+import { SignJWT, importPKCS8, importSPKI } from 'jose';
 
 const privateKeyString = await readFile('./private-key.pem', 'utf-8');
 const publicKeyString = await readFile('./keys/public-key.pem', 'utf-8');
@@ -15,8 +15,8 @@ const jwt = await new SignJWT({ claims: { a: 'rw' } })
   .setExpirationTime('1d')
   .sign(privateKey);
 
-console.log(jwt);
+console.log({ jwt });
 
-const { payload, protectedHeader } = await jwtVerify(jwt, publicKey);
+// const { payload, protectedHeader } = await jwtVerify(jwt, publicKey);
 
-console.log({ payload, protectedHeader });
+// console.log({ payload, protectedHeader });
