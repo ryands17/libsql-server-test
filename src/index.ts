@@ -1,6 +1,5 @@
 import { z } from 'zod';
-import { v4 as uuidv4 } from 'uuid';
-import { writer, reader, todos } from './schema';
+import { db, todos } from './schema';
 import { eq } from 'drizzle-orm';
 
 const SQLiteBoolean = z
@@ -11,11 +10,9 @@ const SQLiteBoolean = z
 type Filter = 'all' | 'active' | 'completed';
 
 async function fetchTodosV2(filter: Filter = 'all') {
-  let query = reader.select().from(todos).$dynamic();
+  let query = db.select().from(todos).$dynamic();
 
   switch (filter) {
-    case 'all':
-      break;
     case 'active':
       query = query.where(eq(todos.completed, SQLiteBoolean.parse(false)));
       break;
@@ -30,7 +27,7 @@ async function fetchTodosV2(filter: Filter = 'all') {
 
 async function insertTodosV2(values?: (typeof todos.$inferInsert)[]) {
   if (values) {
-    const data = await writer.insert(todos).values(values).returning();
+    const data = await db.insert(todos).values(values).returning();
     return data;
   }
 }

@@ -1,4 +1,10 @@
-import { sqliteTable, integer, text, index } from 'drizzle-orm/sqlite-core';
+import {
+  sqliteTable,
+  integer,
+  text,
+  index,
+  withReplicas,
+} from 'drizzle-orm/sqlite-core';
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +28,7 @@ export const todos = sqliteTable(
 
 const authToken = envs.DB_AUTH_TOKEN;
 
-export const writer = drizzle(
+const writer = drizzle(
   createClient({
     url: 'http://127.0.0.1:8080?tls=0',
     authToken,
@@ -30,10 +36,9 @@ export const writer = drizzle(
   { logger: true },
 );
 
-export const reader = drizzle(
+const reader = drizzle(
   createClient({ url: 'http://127.0.0.1:8081?tls=0', authToken }),
   { logger: true },
 );
 
-// doesn't work yet, following the issue: https://github.com/drizzle-team/drizzle-orm/pull/1536
-// export const db = withReplicas(primary, [read1]);
+export const db = withReplicas(writer, [reader]);

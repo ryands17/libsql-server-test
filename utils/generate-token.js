@@ -6,7 +6,7 @@ const publicKeyString = await readFile('./keys/public-key.pem', 'utf-8');
 const alg = 'EdDSA';
 
 const privateKey = await importPKCS8(privateKeyString, alg);
-const publicKey = await importSPKI(publicKeyString, alg);
+// const publicKey = await importSPKI(publicKeyString, alg);
 
 // allow read-write access
 const jwt = await new SignJWT({ claims: { a: 'rw' } })
